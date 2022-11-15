@@ -10,12 +10,13 @@ const connectorID = "google-drive-kolla-2" // Set this to your google drive conn
 const consumerID = "test-customer-002" // Set this to your ocnsumer ID that was set when you created the consumer_token
 const apiKey = process.env.KOLLA_API_KEY
 
+// This function gets the OAuth2 credentials from the Kolla API then sets them in the Google API SDK
 async function getCredentials() {
   var axios = require('axios');
   var data = JSON.stringify({
     "consumer_id": consumerID
   });
-
+  // This axios config is for the KollaConnect API. This function gets the credentials for a linked account
   var config = {
     method: 'post',
     url: 'https://api.getkolla.com/connect/v1/connectors/' + connectorID + '/linkedaccounts/-:credentials',
@@ -32,6 +33,7 @@ async function getCredentials() {
   oAuth2Client.setCredentials({access_token: response.data.credentials.token})
 }
 
+// This function creates the google sheets document using the credentials from the KollaConnect API
 async function createDocument() {
 
   const title = "My New Spreadsheet"
