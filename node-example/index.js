@@ -30,6 +30,8 @@ async function getCredentials() {
 
   const response = await axios(config)
   
+  // This is where we take the access token returned from KollaConnect and set it on the oAuth2Client
+  // for use with Google API SDK
   oAuth2Client.setCredentials({access_token: response.data.credentials.token})
 }
 
